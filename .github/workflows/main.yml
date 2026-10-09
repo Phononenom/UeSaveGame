@@ -13,14 +13,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup .NET 6
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
 
-      # If the repo has a solution file, build that instead:
+      # If the repo has a solution file, use this instead:
       # - name: Restore
       #   run: dotnet restore ./YourSolution.sln
+      #
       # - name: Build
       #   run: dotnet build ./YourSolution.sln -c Release --no-restore
 
@@ -29,10 +30,10 @@ jobs:
 
       - name: Restore and build UeSaveGame.Json
         run: dotnet build ./UeSaveGame.Json/UeSaveGame.Json.csproj -c Release
-        
+
       - name: Upload build output
         uses: actions/upload-artifact@v4
         with:
           name: UeSaveGame-build
           path: |
-            **/bin/Release/**
+            **/bin/Release/net8.0/**
