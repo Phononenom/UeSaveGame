@@ -29,3 +29,10 @@ jobs:
 
       - name: Restore and build UeSaveGame.Json
         run: dotnet build ./UeSaveGame.Json/UeSaveGame.Json.csproj -c Release
+        
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: UeSaveGame-build
+          path: |
+            **/bin/Release/**
