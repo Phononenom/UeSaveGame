@@ -1,0 +1,31 @@
+name: Build Unreal Engine Save Game Library
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+
+      # If the repo has a solution file, build that instead:
+      # - name: Restore
+      #   run: dotnet restore ./YourSolution.sln
+      # - name: Build
+      #   run: dotnet build ./YourSolution.sln -c Release --no-restore
+
+      - name: Restore and build UeSaveGame
+        run: dotnet build ./UeSaveGame/UeSaveGame.csproj -c Release
+
+      - name: Restore and build UeSaveGame.Json
+        run: dotnet build ./UeSaveGame.Json/UeSaveGame.Json.csproj -c Release
